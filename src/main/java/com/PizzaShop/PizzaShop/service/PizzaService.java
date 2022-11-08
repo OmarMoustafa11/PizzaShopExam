@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PizzaService {
 
@@ -24,14 +26,30 @@ public class PizzaService {
         return new ResponseEntity<>(pizzaRepository.findAll(), HttpStatus.OK);
     }
 
-    public void createBook(Pizza pizza, Long customerId) {
+    public void createPizza(Pizza pizza, Long customerId) {
         customerRepository.findById(customerId).map(customer -> {
             pizza.setCustomer(customer);
             return pizzaRepository.save(pizza);
 
         });
+    }
+    public ResponseEntity<?> getPizzaById(Long pizzaId) {
+        Optional<Pizza> p = pizzaRepository.findById(pizzaId);
+        return new ResponseEntity<>(p, HttpStatus.OK);
+    }
 
 
+    public void updatePizza(Pizza pizza, Long customerId) {
+        customerRepository.findById(customerId).map(customer -> {
+            pizza.setCustomer(customer);
+            return pizzaRepository.save(pizza);
+        });
+
+    }
+
+
+    public void deletePizza(Long pizzaId) {
+       pizzaRepository.deleteById(pizzaId);
     }
 
 }

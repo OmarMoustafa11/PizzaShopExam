@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CustomerService {
 
@@ -20,7 +22,23 @@ public class CustomerService {
     }
     public void createCustomer(Customer customer) {
         customerRepository.save(customer);
+    }
+    public ResponseEntity<?> getCustomerById(Long customerId) {
 
+        Optional<Customer> c = customerRepository.findById(customerId);
+        return new ResponseEntity<> (c, HttpStatus.OK);
+    }
+
+
+    public ResponseEntity<?> updateCustomer(Customer customer, Long cusotmerId) {
+
+        customerRepository.save(customer);
+
+        return new ResponseEntity<> (HttpStatus.OK);
+    }
+
+    public void deleteCustomer(Long customerId) {
+        customerRepository.deleteById(customerId);
     }
 
 }

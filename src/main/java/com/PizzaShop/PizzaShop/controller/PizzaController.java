@@ -19,9 +19,22 @@ public class PizzaController {
 
     @PostMapping("/pizza/{customerId}/pizza")
     public void createBook(@PathVariable(value = "customerId") Long customerId, @RequestBody Pizza pizza) {
-        pizzaService.createBook(pizza,customerId);
+        pizzaService.createPizza(pizza,customerId);
+    }
+    @DeleteMapping("/pizza/{Id}")
+    public void deletePizza(@PathVariable Long Id) {
+        pizzaService.deletePizza(Id);
     }
 
 
+    @GetMapping("/pizza/{pizzaId}")
+    public ResponseEntity<?> getPizzaId(@PathVariable Long pizzaId) {
+        return pizzaService.getPizzaById(pizzaId);
+    }
+
+    @PutMapping("/pizza/{customerId}/pizza")
+    public void updatePizza(@RequestBody Pizza pizza, @PathVariable (value = "customerId") Long customerId) {
+        pizzaService.updatePizza(pizza,customerId);
+    }
 
 }
